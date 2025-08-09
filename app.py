@@ -41,7 +41,13 @@ if st.button("Create a Summary"):
             progress.progress(30)
 
             status_text.text("🤖 Send to Gemini API to create a summary...")
-            summary = generate_content(transcript)
+            summary_prompt = (
+                f"{transcript}\n\n"
+                "The above is a dictionary with the format: "
+                "{'timestamp_start': 'subtitle text'}.\n"
+                "Please create a summary of this transcript."
+            )
+            summary = generate_content(summary_prompt)
             progress.progress(60)
 
             status_text.text(f"🌍 Translate summary into {target_lang}...")
